@@ -27,7 +27,3 @@ Contributions are always welcome! If you find any issues or want to add new feat
 # Credits
 
 CL-ActiveOfficers was developed by CloudDevelopment. Special thanks to the FiveM community as a whole and QBCore in particular for their contributions and support.
-
-# License
-
-This script is released under the GNU General Public License.
