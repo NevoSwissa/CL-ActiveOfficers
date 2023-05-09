@@ -12,7 +12,7 @@ Dark Mode:
 ![image2](https://github.com/NevoSwissa/CL-ActiveOfficers/assets/96447671/1f2e1c52-50ad-4517-a6a5-e31e1ba718f0)
 
 # Features
-- Simple Modern user-interface
+- Simple & modern user-interface
 - Customization options
 - Shows: Callsign, name, rank, radio channel and duty icon
 
