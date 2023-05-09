@@ -4,8 +4,6 @@ game 'gta5'
 lua54 'yes'
 author "NevoSwissa#8239"
 
-shared_script 'config.lua'
-
 ui_page 'html/index.html'
 
 client_scripts {
