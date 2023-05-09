@@ -8,13 +8,14 @@ QBCore.Functions.CreateCallback("CL-ActiveOfficers:GetOfficers", function(source
                 name = v.PlayerData.charinfo.firstname .. " " .. v.PlayerData.charinfo.lastname,
                 badgeNumber = v.PlayerData.metadata["callsign"],
                 rank = v.PlayerData.job.grade.name,
+                gradeLevel = v.PlayerData.job.grade,
                 onDuty = v.PlayerData.job.onduty,
                 radioChannel = GetRadioChannel(v.PlayerData.source),
             })
         end
     end
     table.sort(ActiveOfficers, function(a, b)
-        return a.rank > b.rank
+        return a.gradeLevel > b.gradeLevel
     end)
     cb(ActiveOfficers)
 end)
