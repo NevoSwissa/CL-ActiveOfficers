@@ -68,9 +68,6 @@ RegisterCommand(GetCurrentResourceName(), function()
                 })
                 SetNuiFocus(true, true)
             end)
-        else
-            SendNUIMessage({action = 'HideUserInterface'})
-            SetNuiFocus(false, false)
         end
     else
         QBCore.Functions.Notify('You dont have the required job', 'error')

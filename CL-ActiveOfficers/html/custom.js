@@ -11,14 +11,15 @@ dragElement(document.getElementById("officers-box"), document.querySelector(".he
 sliders.forEach(slider => {
   const sliderValue = slider.value;
   const sliderMax = slider.max;
-  slider.style.setProperty('--value', ((sliderMax - sliderValue) / sliderMax) * 100 + '%');
+  const sliderMin = slider.min;
+  slider.style.setProperty('--value', ((sliderMax - sliderValue) / (sliderMax - sliderMin)) * 100 + '%');
   if (slider.dataset.name === "background-opacity") {
     officersBox.style.setProperty('--background-opacity', `${sliderValue}` / 100);
   } else if (slider.dataset.name === "system-scale") {
     officersBox.style.setProperty('--system-scale', `${sliderValue}` / 100);
   }
   slider.addEventListener('input', function() {
-    slider.style.setProperty('--value', ((sliderMax - this.value) / sliderMax) * 100 + '%');
+    slider.style.setProperty('--value', ((sliderMax - this.value) / (sliderMax - sliderMin)) * 100 + '%');
   });
   slider.addEventListener('change', function() {
     const sliderName = slider.dataset.name;
@@ -36,7 +37,7 @@ $(document).ready(function() {
 });
 
 document.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape' || event.key === 'Backspace')
+  if (event.key === 'Escape')
     HideUserInterface()
 });
 
