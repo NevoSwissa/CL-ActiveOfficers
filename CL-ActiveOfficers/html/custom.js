@@ -83,24 +83,27 @@ function dragElement(elmnt, header) {
 
 function refreshOfficersList(activeOfficers) {
   const officersListElement = document.getElementById('officers-list');
-  officersListElement.innerHTML = ''; 
-  if (activeOfficers) {
-    for (const officer of activeOfficers) {
-      const officerElement = document.createElement('div');
-      officerElement.classList.add('officer');
-      const onDutyIcon = '<i class="fa-solid fa-user-clock" style="color: #1B4D3E;"></i>';
-      const offDutyIcon = '<i class="fa-solid fa-user-clock" style="color: #7C0A02;"></i>';
-      officerElement.innerHTML = `
-        <span>
-          ${officer.rank} ${officer.badgeNumber} - ${officer.name}
-          <span style="margin-left: 5px">
-            ${officer.onDuty ? onDutyIcon : offDutyIcon}
-          </span>
-        </span>
-      `;
-      officersListElement.appendChild(officerElement);
-    }
+  officersListElement.innerHTML = '';
+  if (!activeOfficers) {
+    return;
   }
+  for (const officer of activeOfficers) {
+    const officerElement = document.createElement('div');
+    officerElement.classList.add('officer');
+    const onDutyIcon = '<i class="fa-solid fa-user-clock" style="color: #1B4D3E;"></i>';
+    const offDutyIcon = '<i class="fa-solid fa-user-clock" style="color: #7C0A02;"></i>';
+    const officerStatus = officer.onDuty ? onDutyIcon : offDutyIcon;
+    const officerName = `${officer.badgeNumber} ${officer.name} - ${officer.rank}`;
+    const officerContent = `
+      <span>${officerName}<span style="margin-left: 5px">| ${officer.radioChannel}Hz</span></span>
+      <span style="margin-left: 8px">${officerStatus}</span>
+    `;
+    officerElement.innerHTML = officerContent;
+    officersListElement.appendChild(officerElement);
+  }
+  const officersHeaderElement = document.getElementById('officers-header');
+  const officerCount = activeOfficers.length;
+  officersHeaderElement.innerText = `${officerCount} Active Officer${officerCount !== 1 ? 's' : ''}`;
 }
 
 window.addEventListener('message', function(event) {
