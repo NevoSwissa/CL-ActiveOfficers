@@ -3,11 +3,11 @@ Simple to use active-officers user-interface that allows players to view other p
 
 Preview: https://youtu.be/n64iuxv0M5A
 
-Light Mode :
+Dark Mode :
 
 ![image](https://github.com/NevoSwissa/CL-ActiveOfficers/assets/96447671/c8ef7cf2-5a2d-4c6d-ac5e-836288978029)
 
-Dark Mode:
+Light Mode:
 
 ![image2](https://github.com/NevoSwissa/CL-ActiveOfficers/assets/96447671/1f2e1c52-50ad-4517-a6a5-e31e1ba718f0)
 
