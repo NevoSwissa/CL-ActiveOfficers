@@ -5,16 +5,17 @@ Preview: https://youtu.be/n64iuxv0M5A
 
 Dark Mode :
 
-![image](https://github.com/NevoSwissa/CL-ActiveOfficers/assets/96447671/c8ef7cf2-5a2d-4c6d-ac5e-836288978029)
+![image2](https://github.com/NevoSwissa/CL-ActiveOfficers/assets/96447671/a6244c24-64f4-4b50-8e61-f87344de63a5)
 
 Light Mode:
 
-![image2](https://github.com/NevoSwissa/CL-ActiveOfficers/assets/96447671/1f2e1c52-50ad-4517-a6a5-e31e1ba718f0)
+![image](https://github.com/NevoSwissa/CL-ActiveOfficers/assets/96447671/7ca3886b-dc23-4148-a2f9-18495daf538d)
 
 # Features
 - Simple & modern user-interface
 - Customization options
 - Shows: Callsign, name, rank, radio channel and duty icon
+- Colors can be added for each rank, and can also be disabled
 
 # Usage
 
