@@ -93,12 +93,14 @@ function refreshOfficersList(activeOfficers, colors, useColors) {
     const onDutyIcon = '<i class="fa-solid fa-user-clock" style="color: #1B4D3E;"></i>';
     const offDutyIcon = '<i class="fa-solid fa-user-clock" style="color: #7C0A02;"></i>';
     const officerStatus = officer.onDuty ? onDutyIcon : offDutyIcon;
+    const root = document.documentElement;
+    const badgeColor = getComputedStyle(root).getPropertyValue('--accent-color');
     let officerName = '';
     if (useColors) {
       const officerBadgeNumber = document.createElement('span');
       officerBadgeNumber.classList.add('badgeNumber');
       officerBadgeNumber.textContent = officer.badgeNumber;
-      officerBadgeNumber.style.backgroundColor = colors[officer.rank] || 'black';
+      officerBadgeNumber.style.backgroundColor = colors[officer.rank] || badgeColor;
       officerName = `<span>${officerBadgeNumber.outerHTML} ${officer.name} - ${officer.rank}</span>`;
     } else {
       officerName = `<span>${officer.badgeNumber} ${officer.name} - ${officer.rank}</span>`;
