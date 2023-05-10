@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+  		<title>CL-ActiveOfficers</title>
+		<meta charset="UTF-8">
+  		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  		<link rel="stylesheet" type="text/css" href="style.css">
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<div class="white-box" id="white-box">
+			  	<div class="header" id="header">
+					<h2>Active Officers</h2>
+					<button class="close-btn">
+						<i class="fa-solid fa-circle-xmark close-btn-icon"></i>
+					</button>
+			  	</div>
+				<form id="callsign-form">
+					<div class="callsign">
+						<input type="number" placeholder="Callsign" name="callsign" required min="1" max="99999">
+					</div>
+					<div class="submit-btn">
+					  	<button type="submit">Submit</button>
+					</div>
+				</form>
+				<div class="switch-container">
+					<div class="switch-wrapper">
+					  	<h3>Dark Mode</h3>
+					  	<label class="switch">
+							<input type="checkbox" id="toggle-btn-2">
+							<span class="slider round"></span>
+					  	</label>
+					</div>
+					<div class="switch-wrapper">
+					  	<h3>Toggle System</h3>
+					 	<label class="switch">
+							<input type="checkbox" id="toggle-btn-1">
+							<span class="slider round"></span>
+					  	</label>
+					</div>
+				</div>
+				<div class="slide-container">
+					<h4>Background Opacity</h4>
+					<input type="range" min="20" max="100" value="70" class="skidder" id="background-slider" data-name="background-opacity">
+				</div>
+				<div class="slide-container">
+					<h5>System Scale</h5>
+					<input type="range" min="40" max="105" value="90" class="skidder" id="system-scale" data-name="system-scale">
+				</div>
+				<div class="player-info" id="player-info"></div>
+			</div>
+			<div class="officers-box" id="officers-box" style="display: none;">
+				<div class="header-box">
+					<h2 id="officers-header">Active Officers</h2>
+				</div>
+				<div id="officers-list">
+
+				</div>
+			</div>
+		</div>
+  		<script src="custom.js"></script>
+	</body>
+</html>
