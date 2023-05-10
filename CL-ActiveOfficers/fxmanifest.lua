@@ -6,6 +6,8 @@ author "NevoSwissa#8239"
 
 ui_page 'html/index.html'
 
+shared_script 'config.lua'
+
 client_scripts {
     'client/client.lua',
 }

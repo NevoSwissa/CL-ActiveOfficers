@@ -81,7 +81,7 @@ function dragElement(elmnt, header) {
   }
 }
 
-function refreshOfficersList(activeOfficers) {
+function refreshOfficersList(activeOfficers, colors, useColors) {
   const officersListElement = document.getElementById('officers-list');
   officersListElement.innerHTML = '';
   if (!activeOfficers) {
@@ -93,7 +93,16 @@ function refreshOfficersList(activeOfficers) {
     const onDutyIcon = '<i class="fa-solid fa-user-clock" style="color: #1B4D3E;"></i>';
     const offDutyIcon = '<i class="fa-solid fa-user-clock" style="color: #7C0A02;"></i>';
     const officerStatus = officer.onDuty ? onDutyIcon : offDutyIcon;
-    const officerName = `${officer.badgeNumber} ${officer.name} - ${officer.rank}`;
+    let officerName = '';
+    if (useColors) {
+      const officerBadgeNumber = document.createElement('span');
+      officerBadgeNumber.classList.add('badgeNumber');
+      officerBadgeNumber.textContent = officer.badgeNumber;
+      officerBadgeNumber.style.backgroundColor = colors[officer.rank] || 'black';
+      officerName = `<span>${officerBadgeNumber.outerHTML} ${officer.name} - ${officer.rank}</span>`;
+    } else {
+      officerName = `<span>${officer.badgeNumber} ${officer.name} - ${officer.rank}</span>`;
+    }
     const officerContent = `
       <span>${officerName}<span style="margin-left: 5px">| ${officer.radioChannel}Hz</span></span>
       <span style="margin-left: 8px">${officerStatus}</span>
@@ -115,10 +124,10 @@ window.addEventListener('message', function(event) {
       const playerCallsign = event.data.playerCallsign;
       const playerInfoElement = document.getElementById('player-info');
       playerInfoElement.innerHTML = `${playerRank} ${playerCallsign}, ${playerName}.`;
-      refreshOfficersList(event.data.activeOfficers);
+      refreshOfficersList(event.data.activeOfficers, event.data.colors, event.data.useColors);
     break;
     case "RefreshList":
-      refreshOfficersList(event.data.activeOfficers);
+      refreshOfficersList(event.data.activeOfficers, event.data.colors, event.data.useColors);
     break;
   }
 });
@@ -158,6 +167,6 @@ form.addEventListener("submit", (event) => {
   const callsign = form.elements.callsign.value;
   $.post(`https://${GetParentResourceName()}/setCallsign`, JSON.stringify({
     callsign: callsign
-  }), function(data){
-  });
+  })
+  );
 });

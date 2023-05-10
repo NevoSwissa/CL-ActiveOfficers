@@ -44,6 +44,8 @@ Citizen.CreateThread(function()
             SendNUIMessage({
                 action = 'RefreshList',
                 activeOfficers = result,
+                colors = Config.Colors or {},
+                useColors = Config.UseColors,
             })
         end)
         Citizen.Wait(1000)
@@ -64,6 +66,8 @@ RegisterCommand(GetCurrentResourceName(), function()
                     playerRank = PlayerData.job.grade.name,
                     playerCallsign = PlayerData.metadata.callsign,
                     activeOfficers = result,
+                    colors = Config.Colors or {},
+                    useColors = Config.UseColors,
                 })
                 SetNuiFocus(true, true)
             end)

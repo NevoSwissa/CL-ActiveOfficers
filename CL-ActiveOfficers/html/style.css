@@ -105,6 +105,18 @@ body {
   position: relative;
 }
 
+.officer .badgeNumber {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 1.2em;
+  padding: 0.05em 0.5em;
+  border-radius: 3px;
+  margin-right: 5px;
+  font-weight: bold;
+  color: var(--primary-color);
+}
+
 .header {
   background-color: var(--secondary-color);
   border-radius: 48px;
