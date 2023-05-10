@@ -28,7 +28,6 @@ end)
 
 RegisterNUICallback("HideUserInterface", function()
     if showUi then
-        SendNUIMessage({action = 'HideUserInterface'})
         SetNuiFocus(false, false)
         showUi = false
     end
