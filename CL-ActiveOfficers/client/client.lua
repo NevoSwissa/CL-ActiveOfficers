@@ -1,8 +1,6 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 
-local showUi = false
-
-local PlayerData = {}
+local activeOfficers = {} 
 
 RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
     PlayerData = QBCore.Functions.GetPlayerData()
@@ -38,16 +36,36 @@ RegisterNUICallback('setCallsign', function(data, cb)
     cb('ok')
 end)
 
-Citizen.CreateThread(function()
-    while true do
-        QBCore.Functions.TriggerCallback('CL-ActiveOfficers:GetOfficers', function(result)
+function UpdateActiveOfficersList()
+    QBCore.Functions.TriggerCallback('CL-ActiveOfficers:GetOfficers', function(result)
+        if #result ~= #activeOfficers or not IsSameOfficersList(result, activeOfficers) then
+            activeOfficers = result 
             SendNUIMessage({
                 action = 'RefreshList',
-                activeOfficers = result,
+                activeOfficers = activeOfficers,
                 colors = Config.Colors or {},
                 useColors = Config.UseColors,
             })
-        end)
+        end
+    end)
+end
+
+function IsSameOfficersList(list1, list2)
+    for i = 1, #list1 do
+        if not IsSameOfficer(list1[i], list2[i]) then
+            return false
+        end
+    end
+    return true
+end
+
+function IsSameOfficer(officer1, officer2)
+    return officer1.name == officer2.name and officer1.badgeNumber == officer2.badgeNumber and officer1.rank == officer2.rank and officer1.gradeLevel == officer2.gradeLevel and officer1.onDuty == officer2.onDuty and officer1.radioChannel == officer2.radioChannel
+end
+
+Citizen.CreateThread(function()
+    while true do
+        UpdateActiveOfficersList()
         Citizen.Wait(1000)
     end
 end)
@@ -58,21 +76,20 @@ RegisterCommand(GetCurrentResourceName(), function()
     if PlayerData.job.type == "leo" then
         showUi = not showUi
         if showUi then
-            QBCore.Functions.TriggerCallback('CL-ActiveOfficers:GetOfficers', function(result)
-                local playerName = PlayerData.charinfo.firstname .. " " .. PlayerData.charinfo.lastname
-                SendNUIMessage({
-                    action = 'ShowUserInterface',
-                    playerName = playerName,
-                    playerRank = PlayerData.job.grade.name,
-                    playerCallsign = PlayerData.metadata.callsign,
-                    activeOfficers = result,
-                    colors = Config.Colors or {},
-                    useColors = Config.UseColors,
-                })
-                SetNuiFocus(true, true)
-            end)
+            UpdateActiveOfficersList()
+            local playerName = PlayerData.charinfo.firstname .. " " .. PlayerData.charinfo.lastname
+            SendNUIMessage({
+                action = 'ShowUserInterface',
+                playerName = playerName,
+                playerRank = PlayerData.job.grade.name,
+                playerCallsign = PlayerData.metadata.callsign,
+                activeOfficers = activeOfficers,
+                colors = Config.Colors or {},
+                useColors = Config.UseColors,
+            })
+            SetNuiFocus(true, true)
+        else
+            SetNuiFocus(false, false)
         end
-    else
-        QBCore.Functions.Notify('You dont have the required job', 'error')
     end
 end)

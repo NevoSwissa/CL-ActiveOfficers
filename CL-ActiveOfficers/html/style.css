@@ -378,7 +378,7 @@ input:checked + .slider:before {
   align-items: center;
 }
 
-.callsign input[type="number"] {
+.callsign input[type="text"] {
   color: var(--primary-color); 
   background-color: transparent; 
   border: none; 
@@ -390,13 +390,13 @@ input:checked + .slider:before {
   text-align: center;
 }
 
-.callsign input[type="number"]::placeholder {
+.callsign input[type="text"]::placeholder {
   font-weight: normal;
   font-size: 20px;
 }
 
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
+input[type=text]::-webkit-inner-spin-button,
+input[type=text]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
