@@ -51,11 +51,16 @@ function UpdateActiveOfficersList()
 end
 
 function IsSameOfficersList(list1, list2)
+    if #list1 ~= #list2 then
+        return false
+    end
+
     for i = 1, #list1 do
         if not IsSameOfficer(list1[i], list2[i]) then
             return false
         end
     end
+
     return true
 end
 

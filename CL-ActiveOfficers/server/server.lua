@@ -4,7 +4,7 @@ QBCore.Functions.CreateCallback("CL-ActiveOfficers:GetOfficers", function(source
     local ActiveOfficers = {}
     for _, v in pairs(QBCore.Functions.GetQBPlayers()) do
         if v.PlayerData.job.name == "police" then
-            local source = v.PlayerData.source,
+            local source = v.PlayerData.source
             table.insert(ActiveOfficers, {
                 name = v.PlayerData.charinfo.firstname .. " " .. v.PlayerData.charinfo.lastname,
                 badgeNumber = v.PlayerData.metadata["callsign"],
