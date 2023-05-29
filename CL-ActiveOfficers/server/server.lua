@@ -9,7 +9,7 @@ QBCore.Functions.CreateCallback("CL-ActiveOfficers:GetOfficers", function(source
                 name = v.PlayerData.charinfo.firstname .. " " .. v.PlayerData.charinfo.lastname,
                 badgeNumber = v.PlayerData.metadata["callsign"],
                 rank = v.PlayerData.job.grade.name,
-                gradeLevel = v.PlayerData.job.grade,
+                gradeLevel = v.PlayerData.job.grade.level,
                 onDuty = v.PlayerData.job.onduty,
                 radioChannel = GetRadioChannel(source),
             })
