@@ -1,5 +1,9 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 
+local showUi = false
+
+local isPlayerListActive = false
+
 local activeOfficers = {} 
 
 RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
@@ -31,6 +35,16 @@ RegisterNUICallback("HideUserInterface", function()
     end
 end)
 
+RegisterNUICallback('listActive', function(data, cb)
+    if data.active == true then
+        isPlayerListActive = true
+        StartRefreshLoop()
+    elseif data.active == false then
+        isPlayerListActive = false
+    end
+    cb('ok')
+end)
+
 RegisterNUICallback('setCallsign', function(data, cb)
     TriggerServerEvent("CL-ActiveOfficers:SetCallsign", data.callsign)
     cb('ok')
@@ -54,13 +68,11 @@ function IsSameOfficersList(list1, list2)
     if #list1 ~= #list2 then
         return false
     end
-
     for i = 1, #list1 do
         if not IsSameOfficer(list1[i], list2[i]) then
             return false
         end
     end
-
     return true
 end
 
@@ -68,12 +80,16 @@ function IsSameOfficer(officer1, officer2)
     return officer1.name == officer2.name and officer1.badgeNumber == officer2.badgeNumber and officer1.rank == officer2.rank and officer1.gradeLevel == officer2.gradeLevel and officer1.onDuty == officer2.onDuty and officer1.radioChannel == officer2.radioChannel
 end
 
-Citizen.CreateThread(function()
-    while true do
-        UpdateActiveOfficersList()
-        Citizen.Wait(1000)
-    end
-end)
+function StartRefreshLoop()
+    Citizen.CreateThread(function()
+        while isPlayerListActive do
+            if PlayerData.job.type == "leo" then
+                UpdateActiveOfficersList()
+                Citizen.Wait(1000)
+            end
+        end
+    end)
+end
 
 RegisterKeyMapping(GetCurrentResourceName(), 'Active Officers', 'keyboard', '8')
 

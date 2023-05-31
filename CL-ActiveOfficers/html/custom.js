@@ -159,8 +159,14 @@ toggleBtn1.addEventListener('click', () => {
   toggleBtn1.classList.toggle('active');
   if (toggleBtn1.classList.contains('active')) {
     officersBox.style.display = 'block';
+    $.post(`https://${GetParentResourceName()}/listActive`, JSON.stringify({
+      active: true
+    }));
   } else {
     officersBox.style.display = 'none';
+    $.post(`https://${GetParentResourceName()}/listActive`, JSON.stringify({
+      active: false
+    }));
   }
 });
 
@@ -169,6 +175,5 @@ form.addEventListener("submit", (event) => {
   const callsign = form.elements.callsign.value;
   $.post(`https://${GetParentResourceName()}/setCallsign`, JSON.stringify({
     callsign: callsign
-  })
-  );
+  }));
 });
