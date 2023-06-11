@@ -83,10 +83,10 @@ end
 function StartRefreshLoop()
     Citizen.CreateThread(function()
         while isPlayerListActive do
-            if PlayerData.job.type == "leo" then
+            if PlayerData.job.name == "police" then
                 UpdateActiveOfficersList()
-                Citizen.Wait(1000)
             end
+            Citizen.Wait(1000)
         end
     end)
 end
@@ -94,7 +94,7 @@ end
 RegisterKeyMapping(GetCurrentResourceName(), 'Active Officers', 'keyboard', '8')
 
 RegisterCommand(GetCurrentResourceName(), function()
-    if PlayerData.job.type == "leo" then
+    if PlayerData.job.name == "police" then
         showUi = not showUi
         if showUi then
             UpdateActiveOfficersList()
