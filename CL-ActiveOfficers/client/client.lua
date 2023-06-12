@@ -85,6 +85,11 @@ function StartRefreshLoop()
         while isPlayerListActive do
             if PlayerData.job.name == "police" then
                 UpdateActiveOfficersList()
+            else
+                SendNUIMessage({
+                    action = 'CloseList',
+                })
+                isPlayerListActive = false
             end
             Citizen.Wait(1000)
         end

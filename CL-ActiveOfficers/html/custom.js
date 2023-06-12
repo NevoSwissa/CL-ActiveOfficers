@@ -131,6 +131,12 @@ window.addEventListener('message', function(event) {
     case "RefreshList":
       refreshOfficersList(event.data.activeOfficers, event.data.colors, event.data.useColors);
     break;
+    case "CloseList":
+      officersBox.style.display = 'none';
+      if (!toggleBtn1.classList.contains('active')) {
+        toggleBtn1.classList.add('active');
+      }
+    break;
   }
 });
 
