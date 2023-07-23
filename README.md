@@ -5,11 +5,11 @@ Preview: https://youtu.be/n64iuxv0M5A
 
 Dark Mode :
 
-![image2](https://github.com/NevoSwissa/CL-ActiveOfficers/assets/96447671/a6244c24-64f4-4b50-8e61-f87344de63a5)
+![image](https://github.com/NevoSwissa/CL-ActiveOfficers/assets/96447671/daa7b05d-64e2-4520-9bc2-320a6bec28f6)
 
 Light Mode:
 
-![image](https://github.com/NevoSwissa/CL-ActiveOfficers/assets/96447671/7ca3886b-dc23-4148-a2f9-18495daf538d)
+![image](https://github.com/NevoSwissa/CL-ActiveOfficers/assets/96447671/fc5ad82e-e76a-432f-adc0-13cdde585e38)
 
 # Features
 - Simple & modern user-interface
