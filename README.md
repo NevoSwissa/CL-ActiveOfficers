@@ -19,7 +19,7 @@ Light Mode:
 
 # Usage
 
-To use CL-ActiveOfficers, just drag and drop it. No configuration available.
+To use CL-ActiveOfficers, just drag and drop it.
 
 # Contributing
 
