@@ -108,6 +108,7 @@ function refreshOfficersList(activeOfficers, colors, useColors) {
     const officerContent = `
       <span>${officerName}<span style="margin-left: 5px">| ${officer.radioChannel}Hz</span></span>
       <span style="margin-left: 8px">${officerStatus}</span>
+      <span style="margin-left: 8px">${getOfficerPositionIcon(officer, colors, useColors)}</span>
     `;
     officerElement.innerHTML = officerContent;
     officersListElement.appendChild(officerElement);
@@ -116,6 +117,47 @@ function refreshOfficersList(activeOfficers, colors, useColors) {
   const officerCount = activeOfficers.length;
   officersHeaderElement.innerText = `${officerCount} Active Officer${officerCount !== 1 ? 's' : ''}`;
 }
+
+function getOfficerPositionIcon(officer, colors, useColors) {
+  if (officer.vehicleInfo) {
+    if (officer.vehicleInfo.inVehicle) {
+      switch (officer.vehicleInfo.vehicleClass) {
+        case 8:
+          return `<i class="fa-solid fa-motorcycle position-icon" style="${useColors ? 'color:' + (colors[officer.rank] || 'var(--secondary-color)') + ';' : ''}" data-tooltip="${officer.name} is currently driving a motorcycle"></i>`;
+        case 14: 
+          return `<i class="fa-solid fa-ship position-icon" style="${useColors ? 'color:' + (colors[officer.rank] || 'var(--secondary-color)') + ';' : ''}" data-tooltip="${officer.name} is currently sailing"></i>`;
+        case 15:
+          return `<i class="fa-solid fa-helicopter position-icon" style="${useColors ? 'color:' + (colors[officer.rank] || 'var(--secondary-color)') + ';' : ''}" data-tooltip="${officer.name} is currently flying a helicopter"></i>`;
+        default:
+          return `<i class="fa-solid fa-car position-icon" style="${useColors ? 'color:' + (colors[officer.rank] || 'var(--secondary-color)') + ';' : ''}" data-tooltip="${officer.name} is currently driving a car"></i>`;
+      }
+    } else {
+      return `<i class="fa-solid fa-walking position-icon" style="${useColors ? 'color:' + (colors[officer.rank] || 'var(--secondary-color)') + ';' : ''}" data-tooltip="${officer.name} is currently on foot"></i>`;
+    }
+  } else {
+    return '';
+  }
+}
+
+function handleTooltip(event) {
+  const tooltip = event.target.dataset.tooltip;
+  if (tooltip) {
+    const tooltipElement = document.getElementById('tooltip');
+    tooltipElement.innerText = tooltip;
+    tooltipElement.style.opacity = '1';
+    const parentRect = event.target.getBoundingClientRect();
+    tooltipElement.style.left = `${parentRect.left + parentRect.width + 10}px`;
+    tooltipElement.style.top = `${parentRect.top + 10}px`;
+  }
+}
+
+function hideTooltip() {
+  const tooltipElement = document.getElementById('tooltip');
+  tooltipElement.style.opacity = '0';
+}
+
+document.addEventListener('mouseover', handleTooltip);
+document.addEventListener('mouseout', hideTooltip);
 
 window.addEventListener('message', function(event) {
   switch(event.data.action) {

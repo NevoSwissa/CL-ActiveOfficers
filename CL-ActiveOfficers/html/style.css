@@ -117,6 +117,28 @@ body {
   color: var(--primary-color);
 }
 
+.position-icon {
+  cursor: pointer;
+}
+
+.position-icon:hover {
+  transform: scale(1.1);
+}
+
+#tooltip {
+  position: absolute;
+  display: block;
+  background-color: var(--accent-color);
+  color: var(--primary-color);
+  padding: 8px;
+  border-radius: 10px;
+  font-size: 12px;
+  box-shadow: var(--box-shadow-color-1) 0px 10px 15px -3px, var(--box-shadow-color-2) 0px 4px 6px -2px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
 .header {
   background-color: var(--secondary-color);
   border-radius: 48px;

@@ -1,10 +1,10 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 
-local showUi = false
+local isMainInterfaceActive = false
 
 local isPlayerListActive = false
 
-local activeOfficers = {} 
+local activeOfficers = {}
 
 RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
     PlayerData = QBCore.Functions.GetPlayerData()
@@ -29,9 +29,9 @@ AddEventHandler('onResourceStart', function(resourceName)
 end)
 
 RegisterNUICallback("HideUserInterface", function()
-    if showUi then
+    if isMainInterfaceActive then
         SetNuiFocus(false, false)
-        showUi = false
+        isMainInterfaceActive = false
     end
 end)
 
@@ -42,21 +42,25 @@ RegisterNUICallback('listActive', function(data, cb)
     elseif data.active == false then
         isPlayerListActive = false
     end
-    cb('ok')
 end)
 
 RegisterNUICallback('setCallsign', function(data, cb)
     TriggerServerEvent("CL-ActiveOfficers:SetCallsign", data.callsign)
-    cb('ok')
 end)
 
 function UpdateActiveOfficersList()
     QBCore.Functions.TriggerCallback('CL-ActiveOfficers:GetOfficers', function(result)
         if #result ~= #activeOfficers or not IsSameOfficersList(result, activeOfficers) then
-            activeOfficers = result 
+            activeOfficers = result
+            local updatedOfficers = {}
+            for i = 1, #activeOfficers do
+                local officer = activeOfficers[i]
+                officer.vehicleInfo = GetPlayerVehicleInfo(officer.source)
+                table.insert(updatedOfficers, officer)
+            end
             SendNUIMessage({
                 action = 'RefreshList',
-                activeOfficers = activeOfficers,
+                activeOfficers = updatedOfficers,
                 colors = Config.Colors or {},
                 useColors = Config.UseColors,
             })
@@ -80,6 +84,26 @@ function IsSameOfficer(officer1, officer2)
     return officer1.name == officer2.name and officer1.badgeNumber == officer2.badgeNumber and officer1.rank == officer2.rank and officer1.gradeLevel == officer2.gradeLevel and officer1.onDuty == officer2.onDuty and officer1.radioChannel == officer2.radioChannel
 end
 
+function GetPlayerVehicleInfo(source)
+    local playerPed = GetPlayerPed(GetPlayerFromServerId(source))
+    local vehicle = GetVehiclePedIsIn(playerPed, false)
+    if vehicle ~= 0 then
+        local vehicleClass = GetVehicleClass(vehicle)
+        local vehicleName = GetDisplayNameFromVehicleModel(GetEntityModel(vehicle))
+        return {
+            inVehicle = true,
+            vehicleClass = vehicleClass,
+            vehicleName = vehicleName
+        }
+    else
+        return {
+            inVehicle = false,
+            vehicleClass = nil,
+            vehicleName = nil
+        }
+    end
+end
+
 function StartRefreshLoop()
     Citizen.CreateThread(function()
         while isPlayerListActive do
@@ -100,8 +124,8 @@ RegisterKeyMapping(GetCurrentResourceName(), 'Active Officers', 'keyboard', '8')
 
 RegisterCommand(GetCurrentResourceName(), function()
     if PlayerData.job.name == "police" then
-        showUi = not showUi
-        if showUi then
+        isMainInterfaceActive = not isMainInterfaceActive
+        if isMainInterfaceActive then
             UpdateActiveOfficersList()
             local playerName = PlayerData.charinfo.firstname .. " " .. PlayerData.charinfo.lastname
             SendNUIMessage({
