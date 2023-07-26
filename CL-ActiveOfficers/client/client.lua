@@ -50,7 +50,24 @@ end)
 
 function UpdateActiveOfficersList()
     QBCore.Functions.TriggerCallback('CL-ActiveOfficers:GetOfficers', function(result)
-        if #result ~= #activeOfficers or not IsSameOfficersList(result, activeOfficers) then
+        local hasChanges = #result ~= #activeOfficers or not IsSameOfficersList(result, activeOfficers)
+        if not hasChanges then
+            for i = 1, #result do
+                local officer = result[i]
+                local currentOfficer = activeOfficers[i]
+                if officer.vehicleInfo and currentOfficer.vehicleInfo then
+                    if officer.vehicleInfo.vehicleClass ~= currentOfficer.vehicleInfo.vehicleClass or officer.vehicleInfo.inVehicle ~= currentOfficer.vehicleInfo.inVehicle then
+                        hasChanges = true
+                        break
+                    end
+                elseif (officer.vehicleInfo and not currentOfficer.vehicleInfo) or (not officer.vehicleInfo and currentOfficer.vehicleInfo) then
+                    hasChanges = true
+                    break
+                end
+            end
+        end
+
+        if hasChanges then
             activeOfficers = result
             local updatedOfficers = {}
             for i = 1, #activeOfficers do
