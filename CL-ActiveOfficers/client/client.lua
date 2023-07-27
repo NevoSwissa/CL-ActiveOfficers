@@ -106,17 +106,14 @@ function GetPlayerVehicleInfo(source)
     local vehicle = GetVehiclePedIsIn(playerPed, false)
     if vehicle ~= 0 then
         local vehicleClass = GetVehicleClass(vehicle)
-        local vehicleName = GetDisplayNameFromVehicleModel(GetEntityModel(vehicle))
         return {
             inVehicle = true,
             vehicleClass = vehicleClass,
-            vehicleName = vehicleName
         }
     else
         return {
             inVehicle = false,
             vehicleClass = nil,
-            vehicleName = nil
         }
     end
 end
