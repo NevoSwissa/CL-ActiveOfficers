@@ -19,7 +19,7 @@ Light Mode:
 
 # Usage
 
-To use CL-ActiveOfficers, just drag and drop it.
+To use CL-ActiveOfficers, just drag and drop it. To open the Console press 8 on the keyboard.
 
 # Contributing
 
